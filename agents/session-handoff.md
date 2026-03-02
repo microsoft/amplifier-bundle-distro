@@ -65,6 +65,7 @@ meta:
     Session history across multiple sessions requires handoff note analysis.
     </commentary>
     </example>
+  model_role: fast
 ---
 
 # Session Handoff Specialist

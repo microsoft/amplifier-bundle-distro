@@ -8,14 +8,19 @@ bundle:
 
 hooks:
   - module: hooks-handoff
-    source: git+https://github.com/payneio/amplifier-start@main#subdirectory=modules/hooks-handoff
+    source: git+https://github.com/microsoft/amplifier-bundle-distro@main#subdirectory=modules/hooks-handoff
     config:
       enabled: true
   - module: hooks-preflight
-    source: git+https://github.com/payneio/amplifier-start@main#subdirectory=modules/hooks-preflight
+    source: git+https://github.com/microsoft/amplifier-bundle-distro@main#subdirectory=modules/hooks-preflight
     config:
       enabled: true
       blocking: false
+  - module: hooks-session-naming
+    source: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=modules/hooks-session-naming
+    config:
+      initial_trigger_turn: 2
+      update_interval_turns: 5
 
 agents:
   include:

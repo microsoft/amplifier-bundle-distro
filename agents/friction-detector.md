@@ -45,6 +45,7 @@ meta:
     Recurring issues are exactly the friction patterns this agent detects and reports.
     </commentary>
     </example>
+  model_role: [critique, general]
 ---
 
 # Friction Detector

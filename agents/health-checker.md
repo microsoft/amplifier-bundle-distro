@@ -58,6 +58,7 @@ meta:
     Post-change validation catches issues before they cause problems.
     </commentary>
     </example>
+  model_role: fast
 ---
 
 # Health Checker
