@@ -1,0 +1,10 @@
+bundle:
+  name: provider-azure-openai
+  version: 1.0.0
+  description: Azure OpenAI provider
+
+providers:
+  - module: provider-azure-openai
+    source: git+https://github.com/microsoft/amplifier-module-provider-azure-openai@main
+    config:
+      default_model: gpt-5.2

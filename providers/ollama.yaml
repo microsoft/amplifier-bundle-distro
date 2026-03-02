@@ -1,0 +1,10 @@
+bundle:
+  name: provider-ollama
+  version: 1.0.0
+  description: Ollama local model provider
+
+providers:
+  - module: provider-ollama
+    source: git+https://github.com/microsoft/amplifier-module-provider-ollama@main
+    config:
+      default_model: llama3.1
