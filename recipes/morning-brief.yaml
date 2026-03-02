@@ -1,0 +1,45 @@
+name: morning-brief
+description: >
+  Daily intelligence brief. Reads recent session handoffs, project status,
+  and memory to produce a concise "here's what happened, here's what's hot"
+  summary.
+
+steps:
+  - id: gather-handoffs
+    agent: start:session-handoff
+    instruction: >
+      Survey all recent session handoffs from the past 24 hours.
+      Look in ~/.amplifier/projects/*/handoff.md for handoff files.
+      Read each one and extract: what was accomplished, what's in progress,
+      key decisions, and suggested next steps.
+      Return a structured summary of all recent session activity.
+
+  - id: check-health
+    agent: start:health-checker
+    instruction: >
+      Run a quick environment health check. Focus on: are API keys set,
+      is the bundle loading correctly, any cache issues? Keep it brief -
+      just flag problems, don't elaborate on passing checks.
+
+  - id: synthesize-brief
+    instruction: >
+      Based on the session handoff survey and health check results, produce
+      a concise morning brief for the user. Format:
+
+      ```
+      Good morning. Since your last session:
+        - [Key accomplishments from handoffs]
+        - [In-progress items]
+
+      Environment: [health status - brief]
+
+      Suggested focus today:
+        1. [Top priority from handoffs]
+        2. [Second priority]
+        3. [Third priority]
+
+      What would you like to focus on?
+      ```
+
+      Keep it scannable. Under 15 seconds to read. Prioritize by
+      impact and urgency based on handoff content.

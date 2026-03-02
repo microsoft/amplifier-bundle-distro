@@ -1,0 +1,28 @@
+bundle:
+  name: start-behavior
+  version: 0.1.0
+  description: >
+    Core behavior for amplifier-start. Provides environment conventions,
+    session handoffs, health checks, and friction detection as composable
+    capabilities.
+
+hooks:
+  - module: hooks-handoff
+    source: git+https://github.com/payneio/amplifier-start@main#subdirectory=modules/hooks-handoff
+    config:
+      enabled: true
+  - module: hooks-preflight
+    source: git+https://github.com/payneio/amplifier-start@main#subdirectory=modules/hooks-preflight
+    config:
+      enabled: true
+      blocking: false
+
+agents:
+  include:
+    - start:health-checker
+    - start:friction-detector
+    - start:session-handoff
+
+context:
+  include:
+    - start:context/start-awareness.md

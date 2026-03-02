@@ -1,0 +1,75 @@
+name: friction-report
+description: >
+  Weekly friction analysis. Scans all sessions from the past week,
+  classifies friction signals, and produces a scored report with
+  top sources, trends, and suggested actions.
+
+context:
+  time_range:
+    description: Time range to analyze (default "past 7 days")
+    default: "past 7 days"
+
+steps:
+  - id: survey-sessions
+    agent: foundation:explorer
+    instruction: >
+      Survey all Amplifier session directories from the {time_range}.
+      Look in ~/.amplifier/projects/*/sessions/*/. For each session,
+      note: the session ID, project, approximate date (from directory
+      timestamps), and whether a transcript.jsonl exists.
+      Return a list of sessions found with their metadata.
+
+  - id: analyze-friction
+    agent: start:friction-detector
+    instruction: >
+      Analyze the sessions found in the survey for friction patterns.
+      For each session with a transcript, look for these friction signals:
+
+      1. Frustration language (complaints, exasperation, capitalized emphasis)
+      2. Repeated context re-explanation (same facts restated 3+ times)
+      3. Repair session indicators (session fixing a previous session)
+      4. Configuration debugging cycles (same config error recurring)
+      5. Apology spirals (5+ "I apologize" without progress)
+      6. Tool/command invention (nonexistent commands suggested)
+      7. Build recovery marathons (cascading error counts)
+
+      For each signal found, classify by category, estimate severity
+      (critical/high/medium/low), and note the session and approximate
+      location.
+
+      Produce a friction score (1-10, higher = more friction) and
+      identify the top 3 friction sources with patterns.
+
+  - id: generate-report
+    instruction: >
+      Based on the friction analysis, produce a formatted friction report:
+
+      ```
+      Friction Report: {time_range}
+      ==============================
+
+      Sessions Analyzed: [count]
+      Overall Friction Score: [X]/10
+
+      Top 3 Friction Sources:
+      1. [Category] - [N] sessions affected
+         Pattern: [description]
+         Suggested Fix: [actionable recommendation]
+
+      2. [Category] - [N] sessions affected
+         Pattern: [description]
+         Suggested Fix: [actionable recommendation]
+
+      3. [Category] - [N] sessions affected
+         Pattern: [description]
+         Suggested Fix: [actionable recommendation]
+
+      Trend: [comparison to previous if available]
+
+      Detailed Signals:
+      [table of all friction signals found]
+      ```
+
+      Be specific in suggested fixes. Reference actual configuration
+      settings, bundle options, or behavior changes that would address
+      each friction source.
