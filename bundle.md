@@ -10,7 +10,7 @@ bundle:
 
 includes:
   - bundle: git+https://github.com/microsoft/amplifier-foundation@main
-  - bundle: start:behaviors/start
+  - bundle: start:behaviors/start.yaml
 ---
 
 # Amplifier Start
