@@ -1,0 +1,10 @@
+bundle:
+  name: provider-github-copilot
+  version: 1.0.0
+  description: GitHub Copilot provider — Claude and GPT models via your GitHub Copilot subscription
+
+providers:
+  - module: provider-github-copilot
+    source: git+https://github.com/microsoft/amplifier-module-provider-github-copilot@main
+    config:
+      default_model: claude-sonnet-4.6
